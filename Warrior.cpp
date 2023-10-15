@@ -13,7 +13,7 @@ void Warrior::skill(Role& target) {
     target.setHP(target.getHP() - 40);
 }
 
-void Warrior::ultimate(Role& target) {
+void Warrior::ultimate(Role& target) {                                                         //shows error
     if (getCountRound() < 3) {
         std::cout << "大招无法现在使用，请在第3回合之后释放!" << std::endl;
     } else if (getCountUlt() == 1) {
