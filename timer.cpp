@@ -1,4 +1,5 @@
-
+// Timer.cpp
+#include "Timer.h"
 #include <ctime>
 
 Timer::Timer() : timerStarted(false), startTime(0), duration(0) {}
