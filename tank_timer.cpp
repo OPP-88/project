@@ -1,5 +1,5 @@
 #include "tank_timer.h"
-#include "Timer.h"
+#include "timer.h"
 #include <iostream>
 #include <cmath>
 
@@ -28,7 +28,7 @@ void Tank::ultimate(Role& target) {
         std::cout << getName() << " 使用大招!" << std::endl;
 
         // 大招的逻辑，根据你提供的代码来实现
-        target.setHP(std::ceil(target.getHP() * 0.8));
+        target.setHP(std::ceil(target.getHP() * 0.2));
         target.setAttack(target.getAttack() * 3);
         setCountUlt(1);
     }
