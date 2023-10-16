@@ -1,7 +1,8 @@
-#ifndef WARRIOR_H
-#define WARRIOR_H
+#ifndef WARRIOR_TIMER_H
+#define WARRIOR_TIMER_H
 
 #include "Role.h"
+#include "timer.h"
 #include <iostream>
 #include <chrono> // 引入 <chrono> 库
 
