@@ -1,32 +1,31 @@
-// Mage_timer.cpp
 #include "mage_timer.h"
 #include <iostream>
 
-Mage::Mage() : Role("法师", 100, 80, 15, 20) {
-    // 初始化法师的大招计时器，持续时间为10秒
+Mage::Mage() : Role("Mage", 100, 80, 15, 20) {
+
     ultimateTimer = Timer();
     ultimateTimer.start(10);
 }
 
 void Mage::skill(Role& target) {
     if (getMana() < getSkillCost()) {
-        std::cout << "蓝量不足，无法使用技能！" << std::endl;
+        std::cout << "mana not enough, cannot use skill attack！" << std::endl;
         return;
     }
     Role::skill(target);
-    std::cout << getName() << " 使用技能攻击 " << target.getName() << "!" << std::endl;
     target.setHP(target.getHP() - 45);
 }
 
 void Mage::ultimate(Role& target) {
     if (!ultimateTimer.isTimeUp()) {
-        std::cout << "大招还未准备好，剩余时间：" << ultimateTimer.getTimeRemaining() << "秒" << std::endl;
+        std::cout << "ultimate is not ready until： " << ultimateTimer.getTimeRemaining() << " seconds" << std::endl;
     } else if (getCountUlt() == 1) {
-        std::cout << "大招已经被使用了!" << std::endl;
+        std::cout << "ultimate have been casted already! " << std::endl;
     } else {
         Role::ultimate(target);
-        std::cout << getName() << " 使用大招 " << target.getName() << "!" << std::endl;
-        target.setHP(target.getHP() + 50);
+        std::cout << getName() << " using ultimate to " << getName() << " !" << std::endl;
+        setHP(getHP() + 50);
+        std::cout << "your ultimate succuss healing 50 Hp to "<< getName() << " !" << std::endl;
         setCountUlt(1);
     }
 }
