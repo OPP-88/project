@@ -6,8 +6,8 @@
 Game::Game() {
     srand(time(nullptr));
     initializePlayers();
-    skillCooldownTimer.start(2);      // 设置技能冷却时间为5秒
-    ultimateCooldownTimer.start(4);  // 设置大招冷却时间为10秒
+    skillCooldownTimer.start(2);    
+    ultimateCooldownTimer.start(4);  
 }
 
 Game::~Game() {
@@ -17,7 +17,7 @@ Game::~Game() {
 
 void Game::initializePlayers() {
     int choice;
-    std::cout << "请选择职业: 1.战士 2.刺客 3.法师 4.坦克" << std::endl;
+    std::cout << "please chose your role: 1.Warrior 2.Assassin 3.Mage 4.Tank" << std::endl;
     std::cin >> choice;
 
     switch (choice) {
@@ -34,7 +34,7 @@ void Game::initializePlayers() {
             player = new Tank();
             break;
         default:
-            std::cout << "无效的选择，游戏退出" << std::endl;
+            std::cout << "not identiable choice, game quit" << std::endl;
             exit(0);
     }
 
@@ -54,7 +54,7 @@ void Game::initializePlayers() {
             break;
     }
 
-    std::cout << "您选择了 " << player->getName() << "，电脑选择了 " << computer->getName() << std::endl;
+    std::cout << "you chose " << player->getName() << "，computer chose " << computer->getName() << std::endl;
 }
 
 void Game::playRound() {
@@ -64,29 +64,30 @@ void Game::playRound() {
 
         do {
             validOperation = true;
-            std::cout << "请选择操作：1.进攻 2.技能 3.大招" << std::endl;
+            std::cout << "please chose your action : 1.attack 2.skill attack 3.ultimate" << std::endl;
             std::cin >> operation;
 
             if (operation == 2 && player->getMana() < player->getSkillCost()) {
-                std::cout << "蓝量不足，无法使用技能！" << std::endl;
+                std::cout << "mana not enough，not able to use skill！" << std::endl;
                 validOperation = false;
             } else if (operation != 1 && operation != 2 && operation != 3) {
-                std::cout << "无效的操作" << std::endl;
+                std::cout << "undentified movement" << std::endl;
                 validOperation = false;
             }
         } while (!validOperation);
 
         if (operation == 1) {
-            std::cout << player->getName() << " 攻击 " << computer->getName() << "!" << std::endl;
             computer->setHP(computer->getHP() - player->getAttack());
+            std::cout <<"you have Attack " << computer->getName() <<"  opponent health: "<< computer ->getHP() << std::endl;
         } else if (operation == 2) {
             player->skill(*computer);
+            std::cout <<"you have use skill Attack " << computer->getName() <<"  opponent health: "<< computer ->getHP() << "  your current mana: "<<player->getMana()<<std::endl;
         } else if (operation == 3) {
             player->ultimate(*computer);
         }
 
         if (computer->getHP() <= 0) {
-            std::cout << "您赢了！" << std::endl;
+            std::cout << "you win！" << std::endl;
             break;
         }
 
@@ -94,21 +95,22 @@ void Game::playRound() {
 
         if (computer->getMana() < computer->getSkillCost()) {
             computerOperation = 1;
-        } else {
-            computerOperation = rand() % 2 + 1;
+        } else  {
+            computerOperation = rand() % 3 + 1;
         }
 
         if (computerOperation == 1) {
-            std::cout << computer->getName() << " 攻击 " << player->getName() << "!" << std::endl;
             player->setHP(player->getHP() - computer->getAttack());
+            std::cout <<"you have been Attacked by " << computer->getName() <<"  your health: "<< player ->getHP() << std::endl;
         } else if (computerOperation == 2) {
             computer->skill(*player);
+            std::cout <<"you have been skill Attacked by " << computer->getName() <<"  your health: "<< player ->getHP()<<std::endl;
         } else if (computerOperation == 3) {
             computer->ultimate(*player);
         }
 
         if (player->getHP() <= 0) {
-            std::cout << "您输了！" << std::endl;
+            std::cout << "you lost！" << std::endl;
             break;
         }
     }
