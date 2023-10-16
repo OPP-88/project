@@ -1,9 +1,9 @@
-
+// Mage_Timer.h
 #ifndef MAGE_TIMER_H
 #define MAGE_TIMER_H
 
 #include "Role.h"
-#include "Timer.h" // 引入Timer头文件
+#include "timer.h" // 引入Timer头文件
 
 class Mage: public Role {
 public:
