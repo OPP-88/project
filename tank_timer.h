@@ -1,9 +1,10 @@
-#ifndef TANK_H
-#define TANK_H
+#ifndef TANK_TIMER_H
+#define TANK_TIMER_H
 
 #include <string>
-#include "Timer.h"
+#include "timer.h"
 #include "Role.h"
+
 
 class Tank : public Role {
 public:
