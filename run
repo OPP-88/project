@@ -1,1 +1,3 @@
 g++ -std=c++11 assassin_timer.cpp game_main.cpp game.cpp mage_timer.cpp tank_timer.cpp warrior_timer.cpp timer.cpp  -o a
+
+./a
