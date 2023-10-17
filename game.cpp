@@ -34,7 +34,7 @@ void Game::initializePlayers() {
             player = new Tank();
             break;
         default:
-            std::cout << "not identiable choice, game quit" << std::endl;
+            std::cout << "not identiable choice" << std::endl;
             exit(0);
     }
 
@@ -55,24 +55,25 @@ void Game::initializePlayers() {
     }
 
     std::cout << "you chose " << player->getName() << "，computer chose " << computer->getName() << std::endl;
+    std::cout << "your stat： "<<player->getHP()<<"(HP), "<<player->getAttack()<<"(attack), "<<player->getMana()<<"(Mana), "<<player->getSkillCost()<<"(mana cost)."<< std::endl;
 }
 
 void Game::playRound() {
     while (player->getHP() > 0 && computer->getHP() > 0) {
         int operation;
         bool validOperation;
-
         do {
             validOperation = true;
-            std::cout << "please chose your action : 1.attack 2.skill attack 3.ultimate" << std::endl;
+            std::cout << "please chose your action : 1.attack 2.skill attack 3.ultimate 4.check stat" << std::endl;
             std::cin >> operation;
 
             if (operation == 2 && player->getMana() < player->getSkillCost()) {
                 std::cout << "mana not enough，not able to use skill！" << std::endl;
                 validOperation = false;
-            } else if (operation != 1 && operation != 2 && operation != 3) {
+            } else if (operation != 1 && operation != 2 && operation != 3 && operation !=4) {
                 std::cout << "undentified movement" << std::endl;
                 validOperation = false;
+                return;
             }
         } while (!validOperation);
 
@@ -84,6 +85,8 @@ void Game::playRound() {
             std::cout <<"you have use skill Attack " << computer->getName() <<"  opponent health: "<< computer ->getHP() << "  your current mana: "<<player->getMana()<<std::endl;
         } else if (operation == 3) {
             player->ultimate(*computer);
+        } else if (operation ==4) {
+            std::cout << "your stat： "<<player->getHP()<<"(HP), "<<player->getAttack()<<"(attack), "<<player->getMana()<<"(Mana), "<<player->getSkillCost()<<"(mana cost)."<< std::endl;
         }
 
         if (computer->getHP() <= 0) {
@@ -95,9 +98,11 @@ void Game::playRound() {
 
         if (computer->getMana() < computer->getSkillCost()) {
             computerOperation = 1;
-        } else  {
+        } else if (operation ==4) {
+            continue;
+        }else{
             computerOperation = rand() % 3 + 1;
-        }
+        } 
 
         if (computerOperation == 1) {
             player->setHP(player->getHP() - computer->getAttack());
@@ -107,7 +112,7 @@ void Game::playRound() {
             std::cout <<"you have been skill Attacked by " << computer->getName() <<"  your health: "<< player ->getHP()<<std::endl;
         } else if (computerOperation == 3) {
             computer->ultimate(*player);
-        }
+        } 
 
         if (player->getHP() <= 0) {
             std::cout << "you lost！" << std::endl;
