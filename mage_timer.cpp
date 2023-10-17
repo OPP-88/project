@@ -1,7 +1,7 @@
 #include "mage_timer.h"
 #include <iostream>
 
-Mage::Mage() : Role("Mage", 100, 80, 15, 20) {
+Mage::Mage() : Role("Mage", 200, 100, 15, 30) {
 
     ultimateTimer = Timer();
     ultimateTimer.start(10);
@@ -13,7 +13,7 @@ void Mage::skill(Role& target) {
         return;
     }
     Role::skill(target);
-    target.setHP(target.getHP() - 45);
+    target.setHP(target.getHP() - 55);
 }
 
 void Mage::ultimate(Role& target) {
