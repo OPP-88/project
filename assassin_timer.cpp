@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 
-Assassin::Assassin() : Role("Assassin", 120, 60, 25, 30) {
+Assassin::Assassin() : Role("Assassin", 180, 90, 30, 30) {
     ultimateTimer = Timer();
     ultimateTimer.start(14);
 }
@@ -14,7 +14,7 @@ void Assassin::skill(Role& target) {
         return;
     }
     Role::skill(target);
-    target.setHP(target.getHP() - 45);
+    target.setHP(target.getHP() - 50);
 }
 
 void Assassin::ultimate(Role& target) {
@@ -29,7 +29,7 @@ void Assassin::ultimate(Role& target) {
         srand(static_cast<unsigned int>(time(nullptr)));
         int randomNumber = rand() % 10 + 1;
 
-        if (randomNumber <= 8) {
+        if (randomNumber <= 7) {
             std::cout << getName() << " your ultimate failed, you have roled: " << randomNumber << " !" << std::endl;
         } else {
             std::cout << getName() << " your ultimate succuss, you have roled: " << randomNumber << " !" << std::endl;
