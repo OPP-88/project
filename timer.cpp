@@ -1,4 +1,3 @@
-// Timer.cpp
 #include "timer.h"
 #include <ctime>
 
@@ -28,5 +27,5 @@ int Timer::getTimeRemaining() const {
 }
 
 void Timer::update() {
-    //return 0;
+
 }
