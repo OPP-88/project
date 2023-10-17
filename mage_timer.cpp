@@ -1,7 +1,7 @@
 #include "mage_timer.h"
 #include <iostream>
 
-Mage::Mage() : Role("Mage", 200, 100, 15, 30) {
+Mage::Mage() : Role("Mage", 200, 90, 15, 30) {
 
     ultimateTimer = Timer();
     ultimateTimer.start(10);
