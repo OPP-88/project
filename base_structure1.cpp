@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// 角色
+// Role class representing a character in the game.
 class Role {
 public:
     string name;
@@ -19,51 +19,51 @@ public:
     virtual void skill(Role& target) = 0;
 };
 
-// 战士
+// Warrior class, a subclass of Role.
 class Warrior: public Role {
 public:
-    Warrior(): Role("战士", 100, 50, 20) {}
+    Warrior(): Role("Warrior", 100, 50, 20) {}
 
     void skill(Role& target) override {
-        cout << name << " 使用技能攻击 " << target.name << "!" << endl;
+        cout << name << " uses a skill to attack " << target.name << "!" << endl;
         target.hp -= 40;
     }
 };
 
-// 刺客
+// Assassin class, a subclass of Role.
 class Assassin: public Role {
 public:
-    Assassin(): Role("刺客", 80, 60, 25) {}
+    Assassin(): Role("Assassin", 80, 60, 25) {}
 
     void skill(Role& target) override {
-        cout << name << " 使用技能攻击 " << target.name << "!" << endl;
+        cout << name << " uses a skill to attack " << target.name << "!" << endl;
         target.hp -= 50;
     }
 };
 
-// 法师
+// Mage class, a subclass of Role.
 class Mage: public Role {
 public:
-    Mage(): Role("法师", 70, 80, 15) {}
+    Mage(): Role("Mage", 70, 80, 15) {}
 
     void skill(Role& target) override {
-        cout << name << " 使用技能攻击 " << target.name << "!" << endl;
+        cout << name << " uses a skill to attack " << target.name << "!" << endl;
         target.hp -= 45;
     }
 };
 
-// 坦克
+// Tank class, a subclass of Role.
 class Tank: public Role {
 public:
-    Tank(): Role("坦克", 120, 40, 10) {}
+    Tank(): Role("Tank", 120, 40, 10) {}
 
     void skill(Role& target) override {
-        cout << name << " 使用技能攻击 " << target.name << "!" << endl;
+        cout << name << " uses a skill to attack " << target.name << "!" << endl;
         target.hp -= 30;
     }
 };
 
-// 游戏
+// Game class for controlling the game flow.
 class Game {
 public:
     Role* player;
@@ -72,7 +72,7 @@ public:
     Game() {
         srand(time(nullptr));
         int choice;
-        cout << "请选择职业：1.战士 2.刺客 3.法师 4.坦克" << endl;
+        cout << "Choose your class: 1. Warrior 2. Assassin 3. Mage 4. Tank" << endl;
         cin >> choice;
         switch (choice) {
         case 1:
@@ -88,7 +88,7 @@ public:
             player = new Tank();
             break;
         default:
-            cout << "无效的选择，游戏退出" << endl;
+            cout << "Invalid choice. Exiting the game." << endl;
             exit(0);
         }
 
@@ -108,42 +108,42 @@ public:
             break;
         }
 
-        cout << "您选择了 " << player->name << "，电脑选择了 " << computer->name << endl;
+        cout << "You chose " << player->name << ", and the computer chose " << computer->name << endl;
     }
 
     void start() {
         while (player->hp > 0 && computer->hp > 0) {
-            cout << "请选择操作：1.进攻 2.技能" << endl;
+            cout << "Choose an action: 1. Attack 2. Skill" << endl;
             int operation;
             cin >> operation;
             switch (operation) {
             case 1:
-                cout << player->name << " 攻击 " << computer->name << "!" << endl;
+                cout << player->name << " attacks " << computer->name << "!" << endl;
                 computer->hp -= player->attack;
                 break;
             case 2:
                 player->skill(*computer);
                 break;
             default:
-                cout << "无效的操作" << endl;
+                cout << "Invalid action" << endl;
                 continue;
             }
 
             if (computer->hp <= 0) {
-                cout << "您赢了！" << endl;
+                cout << "You win!" << endl;
                 break;
             }
 
             int computerOperation = rand() % 2 + 1;
             if (computerOperation == 1) {
-                cout << computer->name << " 攻击 " << player->name << "!" << endl;
+                cout << computer->name << " attacks " << player->name << "!" << endl;
                 player->hp -= computer->attack;
             } else {
                 computer->skill(*player);
             }
 
             if (player->hp <= 0) {
-                cout << "您输了！" << endl;
+                cout << "You lose!" << endl;
                 break;
             }
         }
