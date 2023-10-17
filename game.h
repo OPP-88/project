@@ -1,7 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Role.h"
 #include "warrior_timer.h"
 #include "assassin_timer.h"
 #include "mage_timer.h"
