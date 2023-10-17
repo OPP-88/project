@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cmath>
 
-Tank::Tank() : Role("Tank", 300, 40, 10, 20) {
+Tank::Tank() : Role("Tank", 200, 40, 20, 20) {
     ultimateTimer = Timer();
     ultimateTimer.start(16);
 }
@@ -14,7 +14,7 @@ void Tank::skill(Role& target) {
         return;
     }
     Role::skill(target);
-    target.setHP(target.getHP() - 45);
+    target.setHP(target.getHP() - 25);
 }
 
 void Tank::ultimate(Role& target) {
@@ -26,9 +26,9 @@ std::cout << "ultimate is not ready until： " << ultimateTimer.getTimeRemaining
         Role::ultimate(target);
         std::cout << getName() << "using ultimate to! " << std::endl;
 
-        setHP(std::ceil(getHP() * 0.4));
+        setHP(std::ceil(getHP() * 0.6));
         setAttack(getAttack() * 3);
-        std::cout << "your ultimate succuss, you lost "<<(getHP()/0.4)-getHP()<< " but you attack increase to "<<getAttack() << std::endl;
+        std::cout << "your ultimate succuss, you lost "<<(getHP()/0.6)-getHP()<< " but you attack increase to "<<getAttack() << std::endl;
         setCountUlt(1);
     }
 }
