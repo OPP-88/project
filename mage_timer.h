@@ -3,7 +3,7 @@
 #define MAGE_TIMER_H
 
 #include "Role.h"
-#include "timer.h" // 引入Timer头文件
+#include "timer.h"
 
 class Mage: public Role {
 public:
@@ -12,7 +12,7 @@ public:
     void ultimate(Role& target) override;
 
 private:
-    Timer ultimateTimer; // 添加Timer对象
+    Timer ultimateTimer;
 };
 
 #endif
