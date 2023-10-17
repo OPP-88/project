@@ -2,30 +2,31 @@
 #include <iostream>
 
 Mage::Mage() : Role("Mage", 200, 90, 15, 30) {
-
+    // Initialize the ultimateTimer with a duration of 10 seconds
     ultimateTimer = Timer();
     ultimateTimer.start(10);
 }
 
 void Mage::skill(Role& target) {
     if (getMana() < getSkillCost()) {
-        std::cout << "mana not enough, cannot use skill attack！" << std::endl;
+        std::cout << "Mana is not enough, cannot use the skill attack!" << std::endl;
         return;
     }
-    Role::skill(target);
-    target.setHP(target.getHP() - 55);
+    Role::skill(target); // Call the base class skill function
+    target.setHP(target.getHP() - 55); // Reduce the target's HP by 55
 }
 
 void Mage::ultimate(Role& target) {
     if (!ultimateTimer.isTimeUp()) {
-        std::cout << "ultimate is not ready until： " << ultimateTimer.getTimeRemaining() << " seconds" << std::endl;
+        // Check if the ultimate is not ready and display the remaining time
+        std::cout << "Ultimate is not ready. Remaining time: " << ultimateTimer.getTimeRemaining() << " seconds" << std::endl;
     } else if (getCountUlt() == 1) {
-        std::cout << "ultimate have been casted already! " << std::endl;
+        std::cout << "Ultimate has already been cast!" << std::endl;
     } else {
-        Role::ultimate(target);
-        std::cout << getName() << " using ultimate to " << getName() << " !" << std::endl;
-        setHP(getHP() + 50);
-        std::cout << "your ultimate succuss healing 50 Hp to "<< getName() << " !" << std::endl;
-        setCountUlt(1);
+        Role::ultimate(target); // Call the base class ultimate function
+        std::cout << getName() << " is using the ultimate on " << target.getName() << "!" << std::endl;
+        setHP(getHP() + 50); // Heal yourself by adding 50 HP
+        std::cout << "Your ultimate successfully heals 50 HP to " << getName() << "!" << std::endl;
+        setCountUlt(1); // Mark that the ultimate has been cast
     }
 }
