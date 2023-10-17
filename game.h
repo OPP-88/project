@@ -9,23 +9,20 @@
 #include <ctime>
 #include <iostream>
 
-
-
 class Game {
 public:
-    Role* player;
-    Role* computer;
+    Role* player; // Player character pointer
+    Role* computer; // Computer character pointer
 
-    Game();
-    ~Game();
+    Game(); // Constructor to initialize the game
+    ~Game(); // Destructor to clean up memory
 
-    void playRound();
+    void playRound(); // Main game loop function
 
 private:
-    void initializePlayers();
-    Timer skillCooldownTimer;
-    Timer ultimateCooldownTimer;
+    void initializePlayers(); // Initialize player characters
+    Timer skillCooldownTimer; // Timer for skill cooldown
+    Timer ultimateCooldownTimer; // Timer for ultimate cooldown
 };
-
 
 #endif
