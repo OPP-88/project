@@ -14,7 +14,6 @@ public:
     void update();
 
 private:
-    int countUlt;
     Timer ultimateTimer;
 };
 
