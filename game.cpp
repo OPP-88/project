@@ -3,21 +3,24 @@
 #include <ctime>
 #include <iostream>
 
+// Constructor for the Game class.
 Game::Game() {
     srand(time(nullptr));
     initializePlayers();
-    skillCooldownTimer.start(2);    
-    ultimateCooldownTimer.start(4);  
+    skillCooldownTimer.start(2);
+    ultimateCooldownTimer.start(4);
 }
 
+// Destructor for the Game class.
 Game::~Game() {
     delete player;
     delete computer;
 }
 
+// Initialize player characters based on user choice and random computer character.
 void Game::initializePlayers() {
     int choice;
-    std::cout << "please chose your role: 1.Warrior 2.Assassin 3.Mage 4.Tank" << std::endl;
+    std::cout << "Please choose your role: 1. Warrior 2. Assassin 3. Mage 4. Tank" << std::endl;
     std::cin >> choice;
 
     switch (choice) {
@@ -34,7 +37,7 @@ void Game::initializePlayers() {
             player = new Tank();
             break;
         default:
-            std::cout << "not identiable choice" << std::endl;
+            std::cout << "Unidentifiable choice" << std::endl;
             exit(0);
     }
 
@@ -54,43 +57,43 @@ void Game::initializePlayers() {
             break;
     }
 
-    std::cout << "you chose " << player->getName() << "，computer chose " << computer->getName() << std::endl;
-    std::cout << "your stat： "<<player->getHP()<<"(HP), "<<player->getAttack()<<"(attack), "<<player->getMana()<<"(Mana), "<<player->getSkillCost()<<"(mana cost)."<< std::endl;
+    std::cout << "You chose " << player->getName() << " and the computer chose " << computer->getName() << std::endl;
+    std::cout << "Your stats: " << player->getHP() << " (HP), " << player->getAttack() << " (Attack), " << player->getMana() << " (Mana), " << player->getSkillCost() << " (Mana cost)." << std::endl;
 }
 
+// Start the game's main loop.
 void Game::playRound() {
     while (player->getHP() > 0 && computer->getHP() > 0) {
         int operation;
         bool validOperation;
         do {
             validOperation = true;
-            std::cout << "please chose your action : 1.attack 2.skill attack 3.ultimate 4.check stat" << std::endl;
+            std::cout << "Please choose your action: 1. Attack 2. Skill attack 3. Ultimate 4. Check stats" << std::endl;
             std::cin >> operation;
 
             if (operation == 2 && player->getMana() < player->getSkillCost()) {
-                std::cout << "mana not enough，not able to use skill！" << std::endl;
+                std::cout << "Not enough mana, unable to use the skill!" << std::endl;
                 validOperation = false;
-            } else if (operation != 1 && operation != 2 && operation != 3 && operation !=4) {
-                std::cout << "undentified movement" << std::endl;
+            } else if (operation != 1 && operation != 2 && operation != 3 && operation != 4) {
+                std::cout << "Unidentified action" << std::endl;
                 validOperation = false;
-                return;
             }
         } while (!validOperation);
 
         if (operation == 1) {
             computer->setHP(computer->getHP() - player->getAttack());
-            std::cout <<"you have Attack " << computer->getName() <<"  opponent health: "<< computer ->getHP() << std::endl;
+            std::cout << "You have attacked " << computer->getName() << ". Opponent's health: " << computer->getHP() << std::endl;
         } else if (operation == 2) {
             player->skill(*computer);
-            std::cout <<"you have use skill Attack " << computer->getName() <<"  opponent health: "<< computer ->getHP() << "  your current mana: "<<player->getMana()<<std::endl;
+            std::cout << "You have used a skill to attack " << computer->getName() << ". Opponent's health: " << computer->getHP() << " Your current mana: " << player->getMana() << std::endl;
         } else if (operation == 3) {
             player->ultimate(*computer);
-        } else if (operation ==4) {
-            std::cout << "your stat： "<<player->getHP()<<"(HP), "<<player->getAttack()<<"(attack), "<<player->getMana()<<"(Mana), "<<player->getSkillCost()<<"(mana cost)."<< std::endl;
+        } else if (operation == 4) {
+            std::cout << "Your stats: " << player->getHP() << " (HP), " << player->getAttack() << " (Attack), " << player->getMana() << " (Mana), " << player->getSkillCost() << " (Mana cost)." << std::endl;
         }
 
         if (computer->getHP() <= 0) {
-            std::cout << "you win！" << std::endl;
+            std::cout << "You win!" << std::endl;
             break;
         }
 
@@ -98,24 +101,24 @@ void Game::playRound() {
 
         if (computer->getMana() < computer->getSkillCost()) {
             computerOperation = 1;
-        } else if (operation ==4) {
+        } else if (operation == 4) {
             continue;
-        }else{
+        } else {
             computerOperation = rand() % 3 + 1;
-        } 
+        }
 
         if (computerOperation == 1) {
             player->setHP(player->getHP() - computer->getAttack());
-            std::cout <<"you have been Attacked by " << computer->getName() <<"  your health: "<< player ->getHP() << std::endl;
+            std::cout << "You have been attacked by " << computer->getName() << ". Your health: " << player->getHP() << std::endl;
         } else if (computerOperation == 2) {
             computer->skill(*player);
-            std::cout <<"you have been skill Attacked by " << computer->getName() <<"  your health: "<< player ->getHP()<<std::endl;
+            std::cout << "You have been skill attacked by " << computer->getName() << ". Your health: " << player->getHP() << std::endl;
         } else if (computerOperation == 3) {
             computer->ultimate(*player);
-        } 
+        }
 
         if (player->getHP() <= 0) {
-            std::cout << "you lost！" << std::endl;
+            std::cout << "You lost!" << std::endl;
             break;
         }
     }
