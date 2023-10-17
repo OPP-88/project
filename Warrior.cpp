@@ -1,27 +1,40 @@
 #include "Warrior.h"
 #include <iostream>
 
-Warrior::Warrior() : Role("战士", 200, 50, 20, 25) {}
+Warrior::Warrior() : Role("Warrior", 200, 50, 20, 25) {
+    // Constructor for the Warrior class, initializing attributes.
+}
 
 void Warrior::skill(Role& target) {
+    // Skill method for the Warrior.
     if (getMana() < getSkillCost()) {
-        std::cout << "蓝量不足，无法使用技能！" << std::endl;
+        // Check if there is enough mana to use the skill.
+        std::cout << "Not enough mana to use the skill!" << std::endl;
         return;
     }
     Role::skill(target);
-    std::cout << getName() << " 使用技能攻击 " << target.getName() << "!" << std::endl;
+    // Call the skill method of the base class and execute it.
+    std::cout << getName() << " uses the skill to attack " << target.getName() << "!" << std::endl;
+    // Display a message indicating the skill usage.
     target.setHP(target.getHP() - 40);
+    // Reduce the target's HP by 40.
 }
 
-void Warrior::ultimate(Role& target) {                                                         //shows error
+void Warrior::ultimate(Role& target) {
+    // Ultimate method for the Warrior.
     if (getCountRound() < 3) {
-        std::cout << "大招无法现在使用，请在第3回合之后释放!" << std::endl;
+        // Check if the required number of rounds has passed to use the ultimate.
+        std::cout << "Ultimate cannot be used now, please release it after Round 3!" << std::endl;
     } else if (getCountUlt() == 1) {
-        std::cout << "大招已经被使用了!" << std::endl;
+        // Check if the ultimate has already been used.
+        std::cout << "Ultimate has already been used!" << std::endl;
     } else {
         Role::ultimate(target);
-        std::cout << getName() << " 使用大招!" << std::endl;
+        // Call the ultimate method of the base class and execute it.
+        std::cout << getName() << " uses the ultimate!" << std::endl;
         target.setMana(0);
+        // Set the target's mana to 0.
         setCountUlt(1);
+        // Mark that the ultimate has been used.
     }
 }
