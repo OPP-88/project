@@ -24,7 +24,7 @@ void Mage::ultimate(Role& target) {
         std::cout << "Ultimate has already been cast!" << std::endl;
     } else {
         Role::ultimate(target); // Call the base class ultimate function
-        std::cout << getName() << " is using the ultimate on " << target.getName() << "!" << std::endl;
+        std::cout << getName() << " is using the ultimate on " << getName() << "!" << std::endl;
         setHP(getHP() + 50); // Heal yourself by adding 50 HP
         std::cout << "Your ultimate successfully heals 50 HP to " << getName() << "!" << std::endl;
         setCountUlt(1); // Mark that the ultimate has been cast
