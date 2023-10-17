@@ -26,7 +26,7 @@ void Tank::ultimate(Role& target) {
         Role::ultimate(target); // Call the base class (Role) ultimate function on the target.
         std::cout << getName() << " using ultimate! " << std::endl;
 
-        setHP(std::ceil(getHP() * 0.6)); // Increase the tank's HP by 60% (rounding up).
+        setHP(std::ceil(getHP() * 0.6)); // decrease the tank's HP by 40% (rounding up).
         setAttack(getAttack() * 3);     // Triple the tank's attack power.
         std::cout << "Your ultimate was successful. You lost " << (getHP() / 0.6) - getHP() << " HP, but your attack increased to " << getAttack() << std::endl;
         setCountUlt(1); // Set the ultimate count to 1, indicating that the ultimate has been cast.
