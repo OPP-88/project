@@ -4,6 +4,7 @@
 
 using namespace std;
 
+// Role class representing a character in the game.
 class Role {
 public:
     string name;
@@ -15,75 +16,85 @@ public:
     Role(string name, int hp, int mp, int attack, int skillCost)
         : name(name), hp(hp), mp(mp), attack(attack), skillCost(skillCost) {}
 
+    // Virtual function for using a skill.
     virtual void skill(Role& target) {
         if (mp < skillCost) {
-            cout << "蓝量不足，无法使用技能！" << endl;
+            cout << "Not enough mana to use the skill!" << endl;
             return;
         }
         mp -= skillCost;
     }
 };
 
+// Warrior class, a subclass of Role.
 class Warrior: public Role {
 public:
-    Warrior(): Role("战士", 200, 50, 20, 25) {}
+    Warrior(): Role("Warrior", 200, 50, 20, 25) {}
 
+    // Override the skill function for the Warrior class.
     void skill(Role& target) override {
         if (mp < skillCost) {
-            cout << "蓝量不足，无法使用技能！" << endl;
+            cout << "Not enough mana to use the skill!" << endl;
             return;
         }
         Role::skill(target);
-        cout << name << " 使用技能攻击 " << target.name << "!" << endl;
+        cout << name << " uses a skill to attack " << target.name << "!" << endl;
         target.hp -= 40;
     }
 };
 
+// Assassin class, a subclass of Role.
 class Assassin: public Role {
 public:
-    Assassin(): Role("刺客", 120, 60, 25, 30) {}
+    Assassin(): Role("Assassin", 120, 60, 25, 30) {}
 
+    // Override the skill function for the Assassin class.
     void skill(Role& target) override {
         if (mp < skillCost) {
-            cout << "蓝量不足，无法使用技能！" << endl;
+            cout << "Not enough mana to use the skill!" << endl;
             return;
         }
         Role::skill(target);
-        cout << name << " 使用技能攻击 " << target.name << "!" << endl;
+        cout << name << " uses a skill to attack " << target.name << "!" << endl;
         target.hp -= 50;
     }
 };
 
+// Mage class, a subclass of Role.
 class Mage: public Role {
 public:
-    Mage(): Role("法师", 100, 80, 15, 20) {}
+    Mage(): Role("Mage", 100, 80, 15, 20) {}
 
+    // Override the skill function for the Mage class.
     void skill(Role& target) override {
         if (mp < skillCost) {
-            cout << "蓝量不足，无法使用技能！" << endl;
+            cout << "Not enough mana to use the skill!" << endl;
             return;
         }
         Role::skill(target);
-        cout << name << " 使用技能攻击 " << target.name << "!" << endl;
+        cout << name << " uses a skill to attack " << target.name << "!" << endl;
         target.hp -= 45;
     }
 };
 
+// Tank class, a subclass of Role.
 class Tank: public Role {
 public:
-    Tank(): Role("坦克", 300, 40, 10, 20) {}
+    Tank(): Role("Tank", 300, 40, 10, 20) {}
 
+    // Override the skill function for the Tank class.
     void skill(Role& target) override {
         if (mp < skillCost) {
-            cout << "蓝量不足，无法使用技能！" << endl;
+            cout << "Not enough mana to use the skill!" << endl;
             return;
         }
         Role::skill(target);
-        cout << name << " 使用技能攻击 " << target.name << "!" << endl;
+        cout << name << " uses a skill to attack " << target.name << "!" << endl;
         target.hp -= 30;
     }
 };
 
+// Game class for controlling the game flow.
 class Game {
 public:
     Role* player;
@@ -92,7 +103,7 @@ public:
     Game() {
         srand(time(nullptr));
         int choice;
-        cout << "请选择职业：1.战士 2.刺客 3.法师 4.坦克" << endl;
+        cout << "Choose your class: 1. Warrior 2. Assassin 3. Mage 4. Tank" << endl;
         cin >> choice;
         switch (choice) {
         case 1:
@@ -108,7 +119,7 @@ public:
             player = new Tank();
             break;
         default:
-            cout << "无效的选择，游戏退出" << endl;
+            cout << "Invalid choice. Exiting the game." << endl;
             exit(0);
         }
 
@@ -128,48 +139,49 @@ public:
             break;
         }
 
-        cout << "您选择了 " << player->name << "，电脑选择了 " << computer->name << endl;
+        cout << "You chose " << player->name << ", and the computer chose " << computer->name << endl;
     }
 
+    // Start the game loop.
     void start() {
         while (player->hp > 0 && computer->hp > 0) {
             int operation;
             bool validOperation;
             do {
                 validOperation = true;
-                cout << "请选择操作：1.进攻 2.技能" << endl;
+                cout << "Choose an action: 1. Attack 2. Skill" << endl;
                 cin >> operation;
                 if (operation == 2 && player->mp < player->skillCost) {
-                    cout << "蓝量不足，无法使用技能！" << endl;
+                    cout << "Not enough mana to use the skill!" << endl;
                     validOperation = false;
                 } else if (operation != 1 && operation != 2) {
-                    cout << "无效的操作" << endl;
+                    cout << "Invalid action" << endl;
                     validOperation = false;
                 }
             } while (!validOperation);
 
             if (operation == 1) {
-                cout << player->name << " 攻击 " << computer->name << "!" << endl;
+                cout << player->name << " attacks " << computer->name << "!" << endl;
                 computer->hp -= player->attack;
             } else {
                 player->skill(*computer);
             }
 
             if (computer->hp <= 0) {
-                cout << "您赢了！" << endl;
+                cout << "You win!" << endl;
                 break;
             }
 
             int computerOperation = computer->mp < computer->skillCost ? 1 : rand() % 2 + 1;
             if (computerOperation == 1) {
-                cout << computer->name << " 攻击 " << player->name << "!" << endl;
+                cout << computer->name << " attacks " << player->name << "!" << endl;
                 player->hp -= computer->attack;
             } else {
                 computer->skill(*player);
             }
 
             if (player->hp <= 0) {
-                cout << "您输了！" << endl;
+                cout << "You lose!" << endl;
                 break;
             }
         }
@@ -184,5 +196,4 @@ public:
 int main() {
     Game game;
     game.start();
-    return 0;
-}
+    return 
