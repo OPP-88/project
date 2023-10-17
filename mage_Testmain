@@ -1,0 +1,19 @@
+#include "mage_Test.h"
+
+int main() {
+    // Run tests
+    MageTest mageTest;
+    mageTest.runTests();
+
+    // Create an instance of the Mage class and perform actions
+    Mage mage;
+
+    // Example: Using skill on a target
+    Role target("Target", 100, 50, 20, 20);
+    mage.skill(target);
+
+    // Example: Using ultimate on a target
+    mage.ultimate(target);
+
+    return 0;
+}
