@@ -1,11 +1,12 @@
 #ifndef TANK
 #define TANK
-#include "Role.h"
-#include <iostream>
+#include "Role.h"      
+#include <iostream>     
+
 class Tank : public Role {
 public:
-    Tank();
-    void skill(Role& target) override;
-    void ultimate(Role& target) override;
+    Tank();              // Constructor for the Tank class.
+    void skill(Role& target) override;    // Declaration of the skill method.
+    void ultimate(Role& target) override; // Declaration of the ultimate method.
 };
 #endif
