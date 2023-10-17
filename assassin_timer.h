@@ -2,9 +2,7 @@
 #define ASSASSIN_TIMER_H
 
 #include "Role.h"
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include "timer.h"
 
 class Assassin : public Role {
 public:
@@ -12,6 +10,9 @@ public:
 
     void skill(Role& target) override;
     void ultimate(Role& target) override;
+
+private:
+    Timer ultimateTimer;
 };
 
 #endif
