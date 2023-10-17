@@ -1,7 +1,7 @@
 #include "warrior_timer.h"
 #include <iostream>
 
-Warrior::Warrior() : Role("Warrior", 200, 50, 20, 25) {
+Warrior::Warrior() : Role("Warrior", 250, 75, 20, 25) {
     ultimateTimer = Timer();
     ultimateTimer.start(12);
 }
@@ -12,7 +12,7 @@ void Warrior::skill(Role& target) {
         return;
     }
     Role::skill(target);
-    target.setHP(target.getHP() - 40);
+    target.setHP(target.getHP() - 30);
 }
 
 void Warrior::ultimate(Role& target) {
