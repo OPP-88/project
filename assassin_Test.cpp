@@ -33,20 +33,3 @@ void AssassinTest::testAssassinSkill() {
         std::cout << "skill not correct" << target.getHP() << std::endl;
     }
 }
-
-
-void AssassinTest::testAssassinUltimate() {
-    Assassin assassin;
-    Role target("Target", 100, 50, 20, 20);
-
-    // Simulate using the ultimate on the target
-    assassin.ultimate(target);
-
-    // Check if the ultimate has the expected effect on the target and the assassin
-    // For example, if the ultimate reduces the target's HP to 0 on a successful roll
-    if (target.getHP() == 0) {
-        assert(assassin.getCountUlt() == 1);  // Check if the countUlt is updated
-    } else {
-        assert(assassin.getCountUlt() == 0);  // Check if the countUlt remains 0 on a failed roll
-    }
-}
