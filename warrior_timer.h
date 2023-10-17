@@ -4,7 +4,7 @@
 #include "Role.h"
 #include "timer.h"
 #include <iostream>
-#include <chrono> // 引入 <chrono> 库
+#include <chrono>
 
 class Warrior : public Role {
 public:
@@ -12,7 +12,7 @@ public:
     void skill(Role& target) override;
     void ultimate(Role& target) override;
 private:
-    std::chrono::time_point<std::chrono::steady_clock> lastUltimateTime;
+    Timer ultimateTimer;
 };
 
 #endif
