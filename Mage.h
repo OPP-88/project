@@ -1,14 +1,14 @@
 #ifndef MAGE_H
 #define MAGE_H
 
-#include "Role.h"
-#include <iostream>
+#include "Role.h"       
+#include <iostream>     
 
 class Mage : public Role {
 public:
-    Mage();
-    void skill(Role& target) override;
-    void ultimate(Role& target) override;
+    Mage();             // Constructor for the Mage class.
+    void skill(Role& target) override;    // Declaration of the skill method.
+    void ultimate(Role& target) override; // Declaration of the ultimate method.
 };
 
 #endif
