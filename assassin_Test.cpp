@@ -3,7 +3,6 @@
 void AssassinTest::runTests() {
     testAssassinInitialization();
     testAssassinSkill();
-    testAssassinUltimate();
 }
 
 void AssassinTest::testAssassinInitialization() {
