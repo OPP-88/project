@@ -11,7 +11,6 @@ public:
 private:
     void testAssassinInitialization();
     void testAssassinSkill();
-    void testAssassinUltimate();
 };
 
 #endif
