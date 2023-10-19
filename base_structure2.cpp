@@ -196,4 +196,5 @@ public:
 int main() {
     Game game;
     game.start();
-    return 
+    return 0;
+}
